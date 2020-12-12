@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="entity"
+            type="com.example.myapplication.database.Entity" />
+
+        <variable
+            name="clickListener"
+            type="com.example.myapplication.add_display_options.NotesListListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/date_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="date"
+                android:textColor="#039A6F"
+                app:layout_constraintBottom_toTopOf="@id/outer_linear_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/outer_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/card_view_to_expand"
+                app:layout_constraintEnd_toEndOf="@id/date_text_view"
+                app:layout_constraintStart_toStartOf="@id/date_text_view"
+                app:layout_constraintTop_toBottomOf="@id/date_text_view">
+
+                <TextView
+                    android:id="@+id/title_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:text="title"
+                    android:textColor="#006347"
+                    android:textSize="25sp" />
+
+                <ImageButton
+                    android:id="@+id/expand_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:background="@color/white"
+                    android:src="@drawable/ic_baseline_expand_more_24" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/card_view_to_expand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/outer_linear_layout">
+
+                <TextView
+                    android:id="@+id/description_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Description"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/delete_button"
+                        style="?attr/borderlessButtonStyle"
+                        app:iconTint="@color/drawable_color"
+                        android:textColor="@color/drawable_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:onClick="@{ () -> clickListener.onClickDelete(entity)}"
+                        android:text="delete"
+                        app:icon="@drawable/ic_baseline_delete_24" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/update_button"
+                        style="?attr/borderlessButtonStyle"
+                        app:iconTint="@color/drawable_color"
+                        android:textColor="@color/drawable_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{ () -> clickListener.onClick(entity)}"
+                        android:text="update"
+                        app:icon="@drawable/ic_baseline_update_24" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/collapse_button"
+                        style="?attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_expand_less_24" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

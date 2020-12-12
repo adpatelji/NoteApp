@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.insert_notes.NotesDescriptionViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/date_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{viewModel.currentNote.currentDateTime}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/date_text_view"
+            app:layout_constraintStart_toStartOf="@id/date_text_view"
+            app:layout_constraintTop_toBottomOf="@id/date_text_view"
+            android:id="@+id/linear_layout">
+
+            <EditText
+                android:id="@+id/title_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Title"
+                android:padding="10dp"
+                android:text="@={viewModel.currentNote.title}"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:gravity="top"
+                android:background="@drawable/edit_text_styling"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/description_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/edit_text_styling"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="Enter Descriptions"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:text="@={viewModel.currentNote.description}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_layout"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/save_button"
+            android:onClick="@{() -> viewModel.saveCurrentNote()}"
+            app:layout_constraintTop_toBottomOf="@id/description_edit_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/go_back"
+            android:background="@color/drawable_color"
+            android:backgroundTint="@color/drawable_color"
+            android:layout_marginTop="16dp"
+            android:text="Save"
+            android:textColor="@color/white"
+
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/go_back"
+            app:layout_constraintTop_toBottomOf="@id/description_edit_text"
+            app:layout_constraintStart_toEndOf="@id/save_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{ ()->viewModel.goBack() }"
+            android:background="@color/drawable_color"
+            android:backgroundTint="@color/drawable_color"
+            android:layout_marginTop="16dp"
+            android:text="GoBack"
+            android:textColor="@color/white"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

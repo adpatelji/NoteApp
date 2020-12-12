@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/allNotesDisplay">
+
+    <fragment
+        android:id="@+id/allNotesDisplay"
+        android:name="com.example.myapplication.add_display_options.AllNotesDisplay"
+        android:label="All Notes" >
+        <action
+            android:id="@+id/action_allNotesDisplay_to_notesDescription"
+            app:destination="@id/notesDescription" />
+        <action
+            android:id="@+id/action_allNotesDisplay_to_addNote"
+            app:destination="@id/addNote" />
+    </fragment>
+    <fragment
+        android:id="@+id/notesDescription"
+        android:name="com.example.myapplication.insert_notes.NotesDescription"
+        android:label="Update Note" >
+        <argument
+            android:name="notesId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_notesDescription_to_allNotesDisplay"
+            app:destination="@id/allNotesDisplay" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNote"
+        android:name="com.example.myapplication.notes.AddNote"
+        android:label="Add Note" >
+        <action
+            android:id="@+id/action_addNote_to_allNotesDisplay"
+            app:destination="@id/allNotesDisplay" />
+    </fragment>
+</navigation>
