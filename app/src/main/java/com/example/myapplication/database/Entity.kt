@@ -1,5 +1,6 @@
 package com.example.myapplication.database
 
+import android.graphics.Bitmap
 import android.text.format.DateUtils
 import androidx.annotation.ColorInt
 import androidx.room.ColumnInfo
@@ -12,13 +13,15 @@ import java.time.format.DateTimeFormatter
 
 @Entity(tableName = "my_notes")
 data class Entity(
-    @PrimaryKey(autoGenerate = true)
+        @PrimaryKey(autoGenerate = true)
     val id:Long = 0L,
 
-    @ColumnInfo(name = "date")
-    val currentDateTime:String = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")),
+        @ColumnInfo(name = "date")
+    val currentDateTime:String = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy hh.mm a")),
 
-    var title:String = "",
-    var description:String = ""
+        var title:String = "",
+        var description:String = "",
+
+        var photo: Bitmap? = null
 
 )

@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.database.Entity
 import com.example.myapplication.database.NotesDao
+import com.example.myapplication.repositary.NoteRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,12 +17,14 @@ import kotlinx.coroutines.withContext
 
 class AllNotesDisplayViewModel(private val databaseDao: NotesDao
                                 ,application: Application) : ViewModel() {
-    val notes = databaseDao.getAllNotes()          //nights
+
+    var repository = NoteRepository(databaseDao)
+    var notes = repository.notes
 
 
-    private val _newNotes = MutableLiveData<Entity>()   //tonight
-    val newNotes:LiveData<Entity>
-        get() = _newNotes
+
+
+
 
 
     //navigate to Add note
@@ -38,8 +41,8 @@ class AllNotesDisplayViewModel(private val databaseDao: NotesDao
     //    navigate to Add note
 
 
-    //navigate to Description note
 
+    //navigate to Description note
     private val _navigateToNotesDescription = MutableLiveData<Long>()
     val navigateToNotesDescription
         get() = _navigateToNotesDescription
@@ -49,19 +52,9 @@ class AllNotesDisplayViewModel(private val databaseDao: NotesDao
     fun onNoteDescriptionNavigated() {
         _navigateToNotesDescription.value = null
     }
-
     //    navigate to description note
 
 
-//    fun insertNotes(){
-//        viewModelScope.launch(Dispatchers.Main) {
-//            val temp = Entity()
-//            withContext(Dispatchers.IO) {
-//                databaseDao.insert(Entity())
-//            }
-//            _newNotes.value  = temp
-//        }
-//    }
     private var _showSnackbarEvent = MutableLiveData<Boolean>()
 
     val showSnackBarEvent: LiveData<Boolean>
@@ -78,7 +71,6 @@ class AllNotesDisplayViewModel(private val databaseDao: NotesDao
             withContext(Dispatchers.IO) {
                 databaseDao.clear()
             }
-            _newNotes.value = null
             _showSnackbarEvent.value = true
         }
     }
@@ -93,8 +85,15 @@ class AllNotesDisplayViewModel(private val databaseDao: NotesDao
         }
     }
 
-
-
+    fun byDate(){
+        notes = repository.refreshVideos(1)
+    }
+    fun hasImage(){
+        notes = repository.refreshVideos(2)
+    }
+    fun notHasImage(){
+        notes = repository.refreshVideos(3)
+    }
 
 
 }

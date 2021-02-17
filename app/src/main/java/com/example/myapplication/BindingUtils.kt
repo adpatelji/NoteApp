@@ -1,8 +1,12 @@
 package com.example.myapplication
 
+import android.graphics.Bitmap
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
 import com.example.myapplication.database.Entity
 
 @BindingAdapter("date")
@@ -25,4 +29,16 @@ fun EditText.setDescription(item: Entity?) {
         setText(item.description)
 
     }
+}
+
+@BindingAdapter("addSrc")
+fun ImageView.setSrc(bitmap:Bitmap?){
+    setImageBitmap(bitmap)
+}
+
+fun EditText.validate(message: String, validator: (String) -> Boolean) {
+    this.doAfterTextChanged {
+        this.error = if (validator(it.toString())) null else message
+    }
+    this.error = if (validator(this.text.toString())) null else message
 }

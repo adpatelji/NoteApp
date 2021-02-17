@@ -2,15 +2,12 @@ package com.example.myapplication.insert_notes
 
 
 import android.app.Application
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.myapplication.database.Entity
 import com.example.myapplication.database.NotesDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class NotesDescriptionViewModel(
@@ -26,7 +23,7 @@ class NotesDescriptionViewModel(
     fun getCurrentNote() = currentNote
 
     init {
-            currentNote.addSource(database.getNightWithId(notesKey), currentNote::setValue)
+            currentNote.addSource(database.getNoteWithId(notesKey), currentNote::setValue)
 //            currentNote = database.get(notesKey)!!
     }
 
@@ -45,6 +42,7 @@ class NotesDescriptionViewModel(
             currentNote.value?.let { database.update(it) }
         }
         Toast.makeText(getApplication() ,"Updated",Toast.LENGTH_SHORT ).show()
+        _navigateToMain.value = true
     }
     fun goBack(){
         _navigateToMain.value = true

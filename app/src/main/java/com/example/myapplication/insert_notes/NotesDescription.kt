@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
 import com.example.myapplication.database.NotesDatabase
 import com.example.myapplication.databinding.NotesDescriptionFragmentBinding
+import com.example.myapplication.validate
 
 
 class NotesDescription : Fragment() {
@@ -52,15 +53,12 @@ class NotesDescription : Fragment() {
             }
         })
 
+        binding.titleTextView.validate("It shouldn't be empty") {
+            binding.saveButton.isEnabled = it.isNotEmpty()
 
+            it.isNotEmpty();
+        }
 
-//        sleepQualityViewModel.navigateToSleepTracker.observe(this.viewLifecycleOwner,  Observer {
-//            if (it == true) { // Observed state is true.
-//                this.findNavController().navigate(
-//                    SleepQualityFragmentDirections.actionSleepQualityFragmentToSleepTrackerFragment())
-//                sleepQualityViewModel.doneNavigating()
-//            }
-//        })
         closeKeyBoard()
 
         return binding.root

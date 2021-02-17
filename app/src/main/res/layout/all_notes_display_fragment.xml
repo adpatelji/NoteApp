@@ -17,23 +17,69 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:layout_margin = "10dp"
+            android:padding="5dp"
+            android:id="@+id/filterTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="FILTERS"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+
+            />
+        <LinearLayout
+            android:layout_margin="4dp"
+            android:padding="5dp"
+            android:id="@+id/buttonFilters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/filterTextView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <Button
+                android:padding="5dp"
+                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> viewModel.byDate() }"
+                android:text="Latest Date"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:layout_margin="3dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> viewModel.notHasImage() }"
+                android:text="Not Image"
+
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Has Image"
+                android:padding="5dp"
+                android:layout_margin="3dp"
+                android:onClick="@{ () -> viewModel.hasImage() }"
+                />
+
+
+        </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sleep_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clear_button" />
-        <!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-
-
-        <!-- With data binding and LiveData, we can track the buttons' visibility states
-             from the ViewModel. The click handler is in the ViewModel as well, and
-             you can set it for the Views using this lambda pattern. -->
-
-        <!--        android:onClick="@{() -> sleepTrackerViewModel.onStartTracking()}"-->
-        <!--        android:enabled="@{sleepTrackerViewModel.startButtonVisible}"-->
+            app:layout_constraintTop_toBottomOf="@+id/buttonFilters" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

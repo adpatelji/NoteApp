@@ -14,6 +14,12 @@ interface NotesDao {
     @Query("select * from my_notes ORDER BY id DESC")
     fun getAllNotes():LiveData<List<Entity>>
 
+    @Query("select * from my_notes where photo is not null")
+    fun getAllNotesThatHasImage():LiveData<List<Entity>>
+
+    @Query("select * from my_notes where photo is null")
+    fun getAllNotesThatHasNotImage():LiveData<List<Entity>>
+
     @Query("SELECT * from my_notes WHERE id = :key")
     suspend fun get(key: Long): Entity?
 
@@ -24,7 +30,7 @@ interface NotesDao {
     fun getCurrentNote(): Entity?
 
     @Query("SELECT * from my_notes WHERE id = :key")
-    fun getNightWithId(key: Long): LiveData<Entity>
+    fun getNoteWithId(key: Long): LiveData<Entity>
 
     @Query("delete from my_notes where id =:key")
     fun deleteNote(key: Long)

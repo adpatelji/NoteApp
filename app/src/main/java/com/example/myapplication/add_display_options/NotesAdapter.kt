@@ -1,9 +1,9 @@
 package com.example.myapplication.add_display_options
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Nullable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +12,7 @@ import com.example.myapplication.database.Entity
 import com.example.myapplication.databinding.ListItemAllNotesBinding
 
 
-class NotesAdapter(val clickListener:NotesListListener) : ListAdapter<Entity, NotesViewHolder>(NotesComparator()) {
+class NotesAdapter(val clickListener: NotesListListener) : ListAdapter<Entity, NotesViewHolder>(NotesComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         return NotesViewHolder.create(parent)
@@ -20,7 +20,7 @@ class NotesAdapter(val clickListener:NotesListListener) : ListAdapter<Entity, No
 
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         val current = getItem(position)!!
-        holder.bind(current , clickListener)
+        holder.bind(current, clickListener)
     }
 
     class NotesViewHolder private constructor(val binding: ListItemAllNotesBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -47,7 +47,7 @@ class NotesAdapter(val clickListener:NotesListListener) : ListAdapter<Entity, No
             fun create(parent: ViewGroup): NotesViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ListItemAllNotesBinding.inflate(
-                    layoutInflater,parent,false)
+                        layoutInflater, parent, false)
                 return NotesViewHolder(binding)
             }
         }
@@ -55,11 +55,16 @@ class NotesAdapter(val clickListener:NotesListListener) : ListAdapter<Entity, No
 
     class NotesComparator : DiffUtil.ItemCallback<Entity>() {
         override fun areItemsTheSame(oldItem: Entity, newItem: Entity): Boolean {
-            return oldItem.id === newItem.id
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Entity, newItem: Entity): Boolean {
             return oldItem == newItem
+        }
+
+        @Nullable
+        override fun getChangePayload(oldItemPosition: Entity, newItemPosition: Entity): Any? {
+            return super.getChangePayload(oldItemPosition, newItemPosition)
         }
     }
 
@@ -67,6 +72,4 @@ class NotesAdapter(val clickListener:NotesListListener) : ListAdapter<Entity, No
 interface NotesListListener{
     fun onClick(entity: Entity)
     fun onClickDelete(entity: Entity)
-//    fun onClickExpand()
-//    fun onClickCollapse()
 }
